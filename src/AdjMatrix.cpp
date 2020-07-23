@@ -24,6 +24,12 @@ void AdjMatrix::insert_edge(int source, int dest)
     adj[dest][source] = true;
 }
 
+void AdjMatrix::resize(size_t vertices)
+{
+    n = vertices;
+    adj.resize(n, std::vector<bool>(n));
+}
+
 int AdjMatrix::vertices()
 {
     return n;
