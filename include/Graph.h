@@ -6,31 +6,15 @@
 class Graph
 {
 public:
-    // Default constructor
-    Graph();
-
-    // Copy constructor
-    // Test if needed
-    // Graph(const Graph& g);
-
-    // Preallocates graph with a size
-    Graph(size_t vertices);
-
     // Erases a vertex and all its incident edges
-    void erase(int vertex);
+    virtual void erase(int vertex) = 0;
 
     // Inserts a new edge
-    void insert_edge(int source, int dest);
+    virtual void insert_edge(int source, int dest) = 0;
 
     // Reallocates an empty graph of size s
-    void resize(size_t vertices);
+    virtual void resize(size_t vertices) = 0;
 
     // Gets the number of vertices
-    int vertices();
-
-    // Gets the number of edges
-    int edges();
-private:
-    size_t n;
-    std::vector<std::set<int>> adj;
+    virtual int vertices() = 0;
 };
