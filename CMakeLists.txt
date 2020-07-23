@@ -7,12 +7,14 @@ set(CMAKE_CXX_STANDARD 20)
 include_directories(include)
 
 set(HEADERS
-    include/Graph.h 
-    include/AdjMatrix.h  
+    include/Graph.h
+    include/AdjList.h
+    include/AdjMatrix.h
 )
 
 set(SOURCES
     src/main.cpp
+    src/AdjList.cpp
     src/AdjMatrix.cpp
 )
 
