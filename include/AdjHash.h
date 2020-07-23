@@ -5,6 +5,7 @@
 class AdjHash : public Graph
 {
 public:
+    AdjHash() {};
     AdjHash(size_t size);
     void erase(int vertex);
     void insert_edge(int source, int dest);

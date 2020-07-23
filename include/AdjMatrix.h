@@ -5,6 +5,7 @@
 class AdjMatrix : public Graph
 {
 public:
+    AdjMatrix() {};
     AdjMatrix(size_t size);
     void erase(int vertex);
     void insert_edge(int source, int dest);
