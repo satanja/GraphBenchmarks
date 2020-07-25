@@ -11,6 +11,7 @@ set(HEADERS
     include/AdjHash.h
     include/AdjList.h
     include/AdjMatrix.h
+    include/AdjMatrixList.h
     include/AdjSet.h
 )
 
@@ -19,6 +20,7 @@ set(SOURCES
     src/AdjHash.cpp
     src/AdjList.cpp
     src/AdjMatrix.cpp
+    src/AdjMatrixList.cpp
     src/AdjSet.cpp
 )
 
