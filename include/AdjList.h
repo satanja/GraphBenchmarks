@@ -13,5 +13,5 @@ public:
     int vertices();
 private:
     std::vector<std::vector<int>> adj;
-    int n;
+    size_t n;
 };

@@ -24,6 +24,7 @@ void AdjList::insert_edge(int source, int dest)
 
 void AdjList::resize(size_t vertices)
 {
+    n = vertices;
     adj.resize(vertices, std::vector<int>(0));
 }
 

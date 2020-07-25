@@ -13,5 +13,5 @@ public:
     int vertices();
 private:
     std::vector<std::unordered_set<int>> adj;
-    int n;
+    size_t n;
 };

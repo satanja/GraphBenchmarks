@@ -13,6 +13,6 @@ public:
     int vertices();
 private:
     std::vector<std::vector<bool>> adj;
-    int n;
+    size_t n;
 };
 
