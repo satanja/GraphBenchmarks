@@ -31,3 +31,15 @@ int AdjSet::vertices()
 {
     return n;
 }
+
+std::vector<int> AdjSet::edges(int source)
+{
+    std::vector<int> edges(adj[source].size());
+    int i = 0;
+    for (auto dest : adj[source])
+    {
+        edges[i] = dest;
+        i++;
+    }
+    return edges;
+}

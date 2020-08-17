@@ -2,6 +2,7 @@
 #include "AdjHash.h"
 #include "AdjList.h"
 #include "AdjMatrix.h"
+#include "AdjMatrixList.h"
 #include "AdjSet.h"
 
 #include <memory>
@@ -63,6 +64,7 @@ void reduceGraph(std::shared_ptr<Graph> g, std::vector<int> del_order)
     }
 }
 
+// BFS from vertex 0 to vertex n - 1
 void traverseGraph(std::shared_ptr<Graph> g)
 {
 
@@ -71,7 +73,7 @@ void traverseGraph(std::shared_ptr<Graph> g)
 int main()
 {   
     auto build_start = std::chrono::high_resolution_clock::now();
-    auto g1 = std::make_shared<AdjMatrix>();
+    auto g1 = std::make_shared<AdjMatrixList>();
     buildGraph(g1);
     auto build_end = std::chrono::high_resolution_clock::now();
     

@@ -32,3 +32,8 @@ int AdjList::vertices()
 {
     return n;
 }
+
+std::vector<int> AdjList::edges(int source)
+{
+    return adj[source];
+}

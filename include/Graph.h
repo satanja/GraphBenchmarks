@@ -18,4 +18,7 @@ public:
 
     // Gets the number of vertices
     virtual int vertices() = 0;
+
+    // Gets the edges from the specified source
+    virtual std::vector<int> edges(int source) = 0;
 };

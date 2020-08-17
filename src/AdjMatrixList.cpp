@@ -34,3 +34,16 @@ int AdjMatrixList::vertices()
 {
     return n;
 }
+
+std::vector<int> AdjMatrixList::edges(int source)
+{
+    std::vector<int> edges;
+    for (auto dest : adj[source].second)
+    {
+        if (adj[source].first[dest])
+        {
+            edges.push_back(dest);
+        }
+    }
+    return edges;
+}
