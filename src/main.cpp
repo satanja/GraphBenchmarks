@@ -17,7 +17,7 @@
 
 #include <queue>
 
-void buildDeleteOrder(int vertices, std::vector<int>& del_order)
+void buildDeleteOrder(int vertices, std::vector<int> &del_order)
 {
     std::srand(1); // fixed seed
     std::vector<int> queue;
@@ -27,7 +27,7 @@ void buildDeleteOrder(int vertices, std::vector<int>& del_order)
     {
         queue[i] = i;
     }
-    
+
     int i = 0;
     while (!queue.empty())
     {
@@ -39,21 +39,21 @@ void buildDeleteOrder(int vertices, std::vector<int>& del_order)
     }
 }
 
-void buildGraph(std::shared_ptr<Graph> g, std::string& path)
+void buildGraph(std::shared_ptr<Graph> g, std::string &path)
 {
-    std::ifstream file { path };
+    std::ifstream file{path};
 
     std::string word;
     file >> word;
     file >> word;
-    
+
     int vertices;
     file >> vertices;
     g->resize(vertices);
 
     int edges;
     file >> edges;
-    
+
     for (int i = 0; i < edges; i++)
     {
         int source;
@@ -75,7 +75,7 @@ void reduceGraph(std::shared_ptr<Graph> g, std::vector<int> del_order)
 void traverseGraph(std::shared_ptr<Graph> g)
 {
     int source = 0;
-    
+
     std::queue<int> q;
     std::vector<bool> discovered(g->vertices());
 
@@ -86,7 +86,7 @@ void traverseGraph(std::shared_ptr<Graph> g)
     {
         auto t = q.front();
         q.pop();
-        for (auto const & dest : g->edges(t))
+        for (auto const &dest : g->edges(t))
         {
             if (!discovered[dest])
             {
@@ -98,7 +98,7 @@ void traverseGraph(std::shared_ptr<Graph> g)
 }
 
 int main()
-{   
+{
     for (int i = 1; i <= 5; i++)
     {
         std::ofstream output;
@@ -109,30 +109,29 @@ int main()
         output << "graph,loading,traversing,deleting\n";
 
         std::shared_ptr<Graph> g;
-
-        switch (i)
+        for (int j = 1; j <= 200; j++)
         {
+            switch (i)
+            {
             case 1:
                 g = std::make_shared<AdjHash>();
                 break;
-            case 2: 
+            case 2:
                 g = std::make_shared<AdjList>();
                 break;
-            case 3: 
+            case 3:
                 g = std::make_shared<AdjMatrix>();
                 break;
-            case 4: 
+            case 4:
                 g = std::make_shared<AdjMatrixList>();
                 break;
-            case 5: 
+            case 5:
                 g = std::make_shared<AdjSet>();
                 break;
-        }
+            }
 
-        for (int j = 1; j <= 200; j++)
-        {
             std::ostringstream inFile;
-            
+
             inFile << "graphs\\vc-exact_";
             inFile << std::setfill('0') << std::setw(3) << j;
             inFile << ".gr";
@@ -146,10 +145,10 @@ int main()
             auto traverse_start = std::chrono::high_resolution_clock::now();
             traverseGraph(g);
             auto traverse_end = std::chrono::high_resolution_clock::now();
-            
+
             std::vector<int> del_order;
             buildDeleteOrder(g->vertices(), del_order);
-        
+
             auto del_start = std::chrono::high_resolution_clock::now();
             reduceGraph(g, del_order);
             auto del_end = std::chrono::high_resolution_clock::now();
