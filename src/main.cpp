@@ -12,6 +12,8 @@
 
 #include <cstdlib>
 
+#include <queue>
+
 void buildDeleteOrder(int vertices, std::vector<int>& del_order)
 {
     std::srand(1); // fixed seed
@@ -64,19 +66,42 @@ void reduceGraph(std::shared_ptr<Graph> g, std::vector<int> del_order)
     }
 }
 
-// BFS from vertex 0 to vertex n - 1
+// BFS from vertex 0
 void traverseGraph(std::shared_ptr<Graph> g)
 {
+    int source = 0;
+    
+    std::queue<int> q;
+    std::vector<bool> discovered(g->vertices());
 
+    q.push(source);
+    discovered[source] = true;
+
+    while (!q.empty())
+    {
+        auto t = q.front();
+        q.pop();
+        for (auto const & dest : g->edges(t))
+        {
+            if (!discovered[dest])
+            {
+                q.push(dest);
+                discovered[dest] = true;
+            }
+        }
+    }
 }
 
 int main()
 {   
     auto build_start = std::chrono::high_resolution_clock::now();
-    auto g1 = std::make_shared<AdjMatrixList>();
+    auto g1 = std::make_shared<AdjSet>();
     buildGraph(g1);
     auto build_end = std::chrono::high_resolution_clock::now();
     
+    auto traverse_start = std::chrono::high_resolution_clock::now();
+    traverseGraph(g1);
+    auto traverse_end = std::chrono::high_resolution_clock::now();
     std::vector<int> del_order;
     buildDeleteOrder(g1->vertices(), del_order);
 
@@ -85,9 +110,11 @@ int main()
     auto del_end = std::chrono::high_resolution_clock::now();
 
     std::chrono::duration<double> build_diff = build_end - build_start;
+    std::chrono::duration<double> traverse_diff = traverse_end - traverse_start;
     std::chrono::duration<double> del_diff = del_end - del_start;
     
     std::cout << "building graph: " << build_diff.count() << " s\n";
+    std::cout << "traversing graph: " << traverse_diff.count() << " s\n";
     std::cout << "deleting graph: " << del_diff.count() << " s\n";
 
     return 0;
