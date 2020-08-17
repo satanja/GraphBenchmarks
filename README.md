@@ -1,7 +1,8 @@
 # About this project
-In FPT kernelization algorithms, graphs are typically reduced vertex by vertex. This project included four generic implementations of graphs:
+In FPT kernelization algorithms, graphs are typically reduced vertex by vertex. This project included five generic implementations of graphs:
 * an Adjacency Matrix,
 * an Adjacency List,
+* an Adjacency Matrix List,
 * an Adjacency Binary Search Tree,
 * and finally an Adjacency Hash Set.
 
@@ -11,4 +12,5 @@ Using the [public vertex cover instances from PACE](https://pacechallenge.org/20
 * deleting the graph using a fixed arbitrary order per graph.
 
 # Notes
-This project is built using CMake, and relative paths inside the code are windows specific
+* Memory consumption is HIGH. It is recommended to have at least 12 GB free at all times. In particular the Adjacency Matrix List has a very high memory  footprint.
+* Relative file paths for windows have been used, i.e. using ``\\``. Change accordingly for building under Linux / MacOS.
