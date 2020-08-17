@@ -8,7 +8,10 @@
 #include <memory>
 #include <chrono>
 
+#include <iomanip>
 #include <iostream>
+#include <sstream>
+#include <fstream>
 
 #include <cstdlib>
 
@@ -36,24 +39,26 @@ void buildDeleteOrder(int vertices, std::vector<int>& del_order)
     }
 }
 
-void buildGraph(std::shared_ptr<Graph> g)
+void buildGraph(std::shared_ptr<Graph> g, std::string& path)
 {
+    std::ifstream file { path };
+
     std::string word;
-    std::cin >> word;
-    std::cin >> word;
+    file >> word;
+    file >> word;
     
     int vertices;
-    std::cin >> vertices;
+    file >> vertices;
     g->resize(vertices);
 
     int edges;
-    std::cin >> edges;
+    file >> edges;
     
     for (int i = 0; i < edges; i++)
     {
         int source;
         int dest;
-        std::cin >> source >> dest;
+        file >> source >> dest;
         g->insert_edge(source - 1, dest - 1);
     }
 }
@@ -94,28 +99,72 @@ void traverseGraph(std::shared_ptr<Graph> g)
 
 int main()
 {   
-    auto build_start = std::chrono::high_resolution_clock::now();
-    auto g1 = std::make_shared<AdjSet>();
-    buildGraph(g1);
-    auto build_end = std::chrono::high_resolution_clock::now();
-    
-    auto traverse_start = std::chrono::high_resolution_clock::now();
-    traverseGraph(g1);
-    auto traverse_end = std::chrono::high_resolution_clock::now();
-    std::vector<int> del_order;
-    buildDeleteOrder(g1->vertices(), del_order);
+    for (int i = 1; i <= 5; i++)
+    {
+        std::ofstream output;
+        std::ostringstream oss;
+        oss << "out\\graph" << i << ".csv";
+        std::string path = oss.str();
+        output.open(path);
+        output << "graph,loading,traversing,deleting\n";
 
-    auto del_start = std::chrono::high_resolution_clock::now();
-    reduceGraph(g1, del_order);
-    auto del_end = std::chrono::high_resolution_clock::now();
+        std::shared_ptr<Graph> g;
 
-    std::chrono::duration<double> build_diff = build_end - build_start;
-    std::chrono::duration<double> traverse_diff = traverse_end - traverse_start;
-    std::chrono::duration<double> del_diff = del_end - del_start;
-    
-    std::cout << "building graph: " << build_diff.count() << " s\n";
-    std::cout << "traversing graph: " << traverse_diff.count() << " s\n";
-    std::cout << "deleting graph: " << del_diff.count() << " s\n";
+        switch (i)
+        {
+            case 1:
+                g = std::make_shared<AdjHash>();
+                break;
+            case 2: 
+                g = std::make_shared<AdjList>();
+                break;
+            case 3: 
+                g = std::make_shared<AdjMatrix>();
+                break;
+            case 4: 
+                g = std::make_shared<AdjMatrixList>();
+                break;
+            case 5: 
+                g = std::make_shared<AdjSet>();
+                break;
+        }
 
+        for (int j = 1; j <= 200; j++)
+        {
+            std::ostringstream inFile;
+            
+            inFile << "graphs\\vc-exact_";
+            inFile << std::setfill('0') << std::setw(3) << j;
+            inFile << ".gr";
+            std::string path = inFile.str();
+            std::cout << path << "\n";
+
+            auto build_start = std::chrono::high_resolution_clock::now();
+            buildGraph(g, path);
+            auto build_end = std::chrono::high_resolution_clock::now();
+
+            auto traverse_start = std::chrono::high_resolution_clock::now();
+            traverseGraph(g);
+            auto traverse_end = std::chrono::high_resolution_clock::now();
+            
+            std::vector<int> del_order;
+            buildDeleteOrder(g->vertices(), del_order);
+        
+            auto del_start = std::chrono::high_resolution_clock::now();
+            reduceGraph(g, del_order);
+            auto del_end = std::chrono::high_resolution_clock::now();
+
+            std::chrono::duration<double> build_diff = build_end - build_start;
+            std::chrono::duration<double> traverse_diff = traverse_end - traverse_start;
+            std::chrono::duration<double> del_diff = del_end - del_start;
+
+            output << j << ",";
+            output << build_diff.count() << ",";
+            output << traverse_diff.count() << ",";
+            output << del_diff.count() << "\n";
+            output.flush();
+        }
+        output.close();
+    }
     return 0;
 }
