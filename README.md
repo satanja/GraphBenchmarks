@@ -12,5 +12,5 @@ Using the [public vertex cover instances from PACE](https://pacechallenge.org/20
 * deleting the graph using a fixed arbitrary order per graph.
 
 # Notes
-* Memory consumption is HIGH. It is recommended to have at least 12 GB free at all times. In particular the Adjacency Matrix List has a very high memory  footprint.
+* Memory consumption is HIGH. It is recommended to have at least 12 GB free at all times. The Adjacency Matrix and Adjacency Matrix List have an obvious large memory footprint...
 * Relative file paths for windows have been used, i.e. using ``\\``. Change accordingly for building under Linux / MacOS.
