@@ -1,4 +1,5 @@
 #include "Graph.h"
+#include "AdjForwardList.h"
 #include "AdjHash.h"
 #include "AdjVec.h"
 #include "AdjMatrix.h"
@@ -78,7 +79,7 @@ void traverseGraph(std::shared_ptr<Graph> g)
 
 int main()
 {
-    for (int i = 1; i <= 5; i++)
+    for (int i = 1; i <= 6; i++)
     {
         std::ofstream output;
         std::ostringstream oss;
@@ -106,6 +107,9 @@ int main()
                 break;
             case 5:
                 g = std::make_shared<AdjSet>();
+                break;
+            case 6:
+                g = std::make_shared<AdjForwardList>();
                 break;
             }
 
