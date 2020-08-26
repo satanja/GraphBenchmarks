@@ -71,30 +71,9 @@ void reduceGraph(std::shared_ptr<Graph> g, std::vector<int> del_order)
     }
 }
 
-// BFS from vertex 0
 void traverseGraph(std::shared_ptr<Graph> g)
 {
-    int source = 0;
-
-    std::queue<int> q;
-    std::vector<bool> discovered(g->vertices());
-
-    q.push(source);
-    discovered[source] = true;
-
-    while (!q.empty())
-    {
-        auto t = q.front();
-        q.pop();
-        for (auto const &dest : g->edges(t))
-        {
-            if (!discovered[dest])
-            {
-                q.push(dest);
-                discovered[dest] = true;
-            }
-        }
-    }
+    g->traverse();
 }
 
 int main()
@@ -165,5 +144,6 @@ int main()
         }
         output.close();
     }
+    
     return 0;
 }

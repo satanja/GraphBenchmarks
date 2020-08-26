@@ -32,14 +32,35 @@ int AdjSet::vertices()
     return n;
 }
 
-std::vector<int> AdjSet::edges(int source)
+void AdjSet::traverse()
 {
-    std::vector<int> edges(adj[source].size());
-    int i = 0;
-    for (auto dest : adj[source])
+    int source = 0;
+
+    std::queue<int> q;
+    std::vector<bool> discovered(n);
+
+    q.push(source);
+    discovered[source] = true;
+
+    while (!q.empty())
     {
-        edges[i] = dest;
-        i++;
+        auto t = q.front();
+        q.pop();
+        for (auto const& dest : adj[t])
+        {
+            if (!discovered[dest])
+            {
+                q.push(dest);
+                discovered[dest] = true;
+            }
+        }
     }
-    return edges;
+
+    int count = 0;
+    for (int i = 0; i < discovered.size(); i++)
+    {
+        count += 1 * discovered[i];
+    }
+
+    std::cout << "vertices reachable: " << count << std::endl;
 }

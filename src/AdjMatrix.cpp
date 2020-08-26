@@ -35,15 +35,35 @@ int AdjMatrix::vertices()
     return n;
 }
 
-std::vector<int> AdjMatrix::edges(int source)
+void AdjMatrix::traverse()
 {
-    std::vector<int> edges;
-    for (int i = 0; i < n; i++)
+    int source = 0;
+
+    std::queue<int> q;
+    std::vector<bool> discovered(n);
+
+    q.push(source);
+    discovered[source] = true;
+
+    while (!q.empty())
     {
-        if (adj[source][i])
+        auto t = q.front();
+        q.pop();
+        for (int i = 0; i < n; i++)
         {
-            edges.push_back(i);
+            if (adj[t][i] && !discovered[i])
+            {
+                q.push(i);
+                discovered[i] = true;
+            }
         }
     }
-    return edges;
+
+    int count = 0;
+    for (int i = 0; i < discovered.size(); i++)
+    {
+        count += 1 * discovered[i];
+    }
+
+    std::cout << "vertices reachable: " << count << std::endl;
 }

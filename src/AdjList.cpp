@@ -33,7 +33,35 @@ int AdjList::vertices()
     return n;
 }
 
-std::vector<int> AdjList::edges(int source)
+void AdjList::traverse()
 {
-    return adj[source];
+    int source = 0;
+
+    std::queue<int> q;
+    std::vector<bool> discovered(n);
+
+    q.push(source);
+    discovered[source] = true;
+
+    while (!q.empty())
+    {
+        auto t = q.front();
+        q.pop();
+        for (auto const &dest : adj[t])
+        {
+            if (!discovered[dest])
+            {
+                q.push(dest);
+                discovered[dest] = true;
+            }
+        }
+    }
+
+    int count = 0;
+    for (int i = 0; i < discovered.size(); i++)
+    {
+        count += 1 * discovered[i];
+    }
+
+    std::cout << "vertices reachable: " << count << std::endl;
 }
