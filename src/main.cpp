@@ -2,6 +2,7 @@
 #include "AdjDeque.h"
 #include "AdjForwardList.h"
 #include "AdjHash.h"
+#include "AdjList.h"
 #include "AdjVec.h"
 #include "AdjMatrix.h"
 #include "AdjMatrixVec.h"
@@ -80,7 +81,7 @@ void traverseGraph(std::shared_ptr<Graph> g)
 
 int main()
 {
-    for (int i = 7; i <= 7; i++)
+    for (int i = 1; i <= 8; i++)
     {
         std::ofstream output;
         std::ostringstream oss;
@@ -114,6 +115,9 @@ int main()
                 break;
             case 7:
                 g = std::make_shared<AdjDeque>();
+                break;
+            case 8:
+                g = std::make_shared<AdjList>();
                 break;
             }
 

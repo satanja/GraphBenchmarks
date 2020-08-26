@@ -11,6 +11,7 @@ set(HEADERS
     include/AdjDeque.h
     include/AdjForwardList.h
     include/AdjHash.h
+    include/AdjList.h
     include/AdjVec.h
     include/AdjMatrix.h
     include/AdjMatrixVec.h
@@ -22,6 +23,7 @@ set(SOURCES
     src/AdjDeque.cpp
     src/AdjForwardList.cpp
     src/AdjHash.cpp
+    src/AdjList.cpp
     src/AdjVec.cpp
     src/AdjMatrix.cpp
     src/AdjMatrixVec.cpp
