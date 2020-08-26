@@ -8,6 +8,7 @@ include_directories(include)
 
 set(HEADERS
     include/Graph.h
+    include/AdjDeque.h
     include/AdjForwardList.h
     include/AdjHash.h
     include/AdjVec.h
@@ -18,6 +19,7 @@ set(HEADERS
 
 set(SOURCES
     src/main.cpp
+    src/AdjDeque.cpp
     src/AdjForwardList.cpp
     src/AdjHash.cpp
     src/AdjVec.cpp
