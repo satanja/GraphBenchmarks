@@ -1,12 +1,12 @@
-#include "AdjList.h"
+#include "AdjVec.h"
 
-AdjList::AdjList(size_t size)
+AdjVec::AdjVec(size_t size)
 {
     n = size;
     adj.resize(n);
 }
 
-void AdjList::erase(int vertex)
+void AdjVec::erase(int vertex)
 {
     for (int dest : adj[vertex])
     {
@@ -16,24 +16,24 @@ void AdjList::erase(int vertex)
     adj[vertex].clear();
 }
 
-void AdjList::insert_edge(int source, int dest)
+void AdjVec::insert_edge(int source, int dest)
 {
     adj[source].push_back(dest);
     adj[dest].push_back(source);
 }
 
-void AdjList::resize(size_t vertices)
+void AdjVec::resize(size_t vertices)
 {
     n = vertices;
     adj.resize(vertices, std::vector<int>(0));
 }
 
-int AdjList::vertices()
+int AdjVec::vertices()
 {
     return n;
 }
 
-void AdjList::traverse()
+void AdjVec::traverse()
 {
     int source = 0;
 

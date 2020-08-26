@@ -1,8 +1,8 @@
 #include "Graph.h"
 #include "AdjHash.h"
-#include "AdjList.h"
+#include "AdjVec.h"
 #include "AdjMatrix.h"
-#include "AdjMatrixList.h"
+#include "AdjMatrixVec.h"
 #include "AdjSet.h"
 
 #include <memory>
@@ -96,13 +96,13 @@ int main()
                 g = std::make_shared<AdjHash>();
                 break;
             case 2:
-                g = std::make_shared<AdjList>();
+                g = std::make_shared<AdjVec>();
                 break;
             case 3:
                 g = std::make_shared<AdjMatrix>();
                 break;
             case 4:
-                g = std::make_shared<AdjMatrixList>();
+                g = std::make_shared<AdjMatrixVec>();
                 break;
             case 5:
                 g = std::make_shared<AdjSet>();

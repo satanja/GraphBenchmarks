@@ -1,12 +1,12 @@
-#include "AdjMatrixList.h"
+#include "AdjMatrixVec.h"
 
-AdjMatrixList::AdjMatrixList(size_t size)
+AdjMatrixVec::AdjMatrixVec(size_t size)
 {
     n = size;
     adj.resize(n, std::pair(std::vector<int>(n), std::vector<int>()));
 }
 
-void AdjMatrixList::erase(int vertex)
+void AdjMatrixVec::erase(int vertex)
 {
     for (auto dest : adj[vertex].second)
     {
@@ -15,7 +15,7 @@ void AdjMatrixList::erase(int vertex)
     }
 }
 
-void AdjMatrixList::insert_edge(int source, int dest)
+void AdjMatrixVec::insert_edge(int source, int dest)
 {
     adj[source].first[dest] = true;
     adj[source].second.push_back(dest);
@@ -24,18 +24,18 @@ void AdjMatrixList::insert_edge(int source, int dest)
     adj[dest].second.push_back(source);
 }
 
-void AdjMatrixList::resize(size_t vertices)
+void AdjMatrixVec::resize(size_t vertices)
 {
     n = vertices;
     adj.resize(n, std::pair(std::vector<int>(n), std::vector<int>())); 
 }
 
-int AdjMatrixList::vertices()
+int AdjMatrixVec::vertices()
 {
     return n;
 }
 
-void AdjMatrixList::traverse()
+void AdjMatrixVec::traverse()
 {
     int source = 0;
 

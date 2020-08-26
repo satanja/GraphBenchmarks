@@ -9,18 +9,18 @@ include_directories(include)
 set(HEADERS
     include/Graph.h
     include/AdjHash.h
-    include/AdjList.h
+    include/AdjVec.h
     include/AdjMatrix.h
-    include/AdjMatrixList.h
+    include/AdjMatrixVec.h
     include/AdjSet.h
 )
 
 set(SOURCES
     src/main.cpp
     src/AdjHash.cpp
-    src/AdjList.cpp
+    src/AdjVec.cpp
     src/AdjMatrix.cpp
-    src/AdjMatrixList.cpp
+    src/AdjMatrixVec.cpp
     src/AdjSet.cpp
 )
 
