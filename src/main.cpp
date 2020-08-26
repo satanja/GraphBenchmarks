@@ -93,6 +93,12 @@ int main()
         std::shared_ptr<Graph> g;
         for (int j = 1; j <= 200; j++)
         {
+            // BAD ALLOC...
+            if (i == 4 && (j == 110 || j == 161))
+            {
+                output << "-,-,-,-\n";
+                continue;
+            }
             switch (i)
             {
             case 1:
