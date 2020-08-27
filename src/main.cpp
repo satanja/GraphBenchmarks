@@ -42,7 +42,7 @@ void buildDeleteOrder(int vertices, std::vector<int> &del_order)
     }
 }
 
-void buildGraph(std::shared_ptr<Graph> g, std::string &path)
+void buildGraph(std::shared_ptr<Graph> g, std::string &path, int& vertices, int& edges)
 {
     std::ifstream file{path};
 
@@ -50,11 +50,9 @@ void buildGraph(std::shared_ptr<Graph> g, std::string &path)
     file >> word;
     file >> word;
 
-    int vertices;
     file >> vertices;
     g->resize(vertices);
 
-    int edges;
     file >> edges;
 
     for (int i = 0; i < edges; i++)
@@ -88,7 +86,7 @@ int main()
         oss << "out\\graph" << i << ".csv";
         std::string path = oss.str();
         output.open(path);
-        output << "graph,loading,traversing,deleting\n";
+        output << "graph,vertices,edges,loading,traversing,deleting\n";
 
         std::shared_ptr<Graph> g;
         for (int j = 1; j <= 200; j++)
@@ -127,6 +125,8 @@ int main()
                 break;
             }
 
+            int vertices, edges;
+
             std::ostringstream inFile;
 
             inFile << "graphs\\vc-exact_";
@@ -136,7 +136,7 @@ int main()
             std::cout << path << "\n";
 
             auto build_start = std::chrono::high_resolution_clock::now();
-            buildGraph(g, path);
+            buildGraph(g, path, vertices, edges);
             auto build_end = std::chrono::high_resolution_clock::now();
 
             auto traverse_start = std::chrono::high_resolution_clock::now();
@@ -155,6 +155,8 @@ int main()
             std::chrono::duration<double> del_diff = del_end - del_start;
 
             output << j << ",";
+            output << vertices << ",";
+            output << edges << ",";
             output << build_diff.count() << ",";
             output << traverse_diff.count() << ",";
             output << del_diff.count() << "\n";
