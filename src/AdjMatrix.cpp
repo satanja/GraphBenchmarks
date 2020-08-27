@@ -37,33 +37,31 @@ int AdjMatrix::vertices()
 
 void AdjMatrix::traverse()
 {
-    int source = 0;
-
-    std::queue<int> q;
+    int components = 0;
     std::vector<bool> discovered(n);
-
-    q.push(source);
-    discovered[source] = true;
-
-    while (!q.empty())
+    for (int i = 0; i < n; i++)
     {
-        auto t = q.front();
-        q.pop();
-        for (int i = 0; i < n; i++)
+        if (discovered[i]) continue;
+        std::queue<int> q;
+        int source = i;
+
+        q.push(source);
+        discovered[source] = true;
+
+        while (!q.empty())
         {
-            if (adj[t][i] && !discovered[i])
+            auto t = q.front();
+            q.pop();
+            for (int i = 0; i < n; i++)
             {
-                q.push(i);
-                discovered[i] = true;
+                if (adj[t][i] && !discovered[i])
+                {
+                    q.push(i);
+                    discovered[i] = true;
+                }
             }
         }
+        components++;
     }
-
-    int count = 0;
-    for (int i = 0; i < discovered.size(); i++)
-    {
-        count += 1 * discovered[i];
-    }
-
-    std::cout << "vertices reachable: " << count << std::endl;
+    std::cout << "connected components: " << components << std::endl;
 }

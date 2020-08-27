@@ -21,6 +21,6 @@ public:
     // Gets the number of vertices
     virtual int vertices() = 0;
 
-    // perfrom a BFS on the graph
+    // counts the number of connected components
     virtual void traverse() = 0;
 };
