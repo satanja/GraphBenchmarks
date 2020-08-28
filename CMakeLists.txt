@@ -31,3 +31,4 @@ set(SOURCES
 )
 
 add_executable(quickdel ${SOURCES} ${HEADERS})
+add_executable(minibench src/extra.cpp)

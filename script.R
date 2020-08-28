@@ -1,14 +1,4 @@
-library(ggplot2)
-
-# # create a data frame
-# variety=rep(LETTERS[1:7], each=40)
-# treatment=rep(c("high","low"),each=20)
-# note=seq(1:280)+sample(1:150, 280, replace=T)
-# data=data.frame(variety, treatment ,  note)
- 
-# # Classed boxplot
-# ggplot(data, aes(x=variety, y=note, fill=treatment)) + 
-#     geom_boxplot()
+library(plotly)
 
 adjhash <- read.csv("out\\graph1.csv")
 adjvec <- read.csv("out\\graph2.csv")
@@ -31,6 +21,8 @@ adjlist$Class <- "AdjList"
 data <- rbind(
     adjhash,
     adjvec,
+    adjmatrix,
+    adjmatrixvec,
     adjset,
     adjflist,
     adjdeque,
@@ -38,27 +30,30 @@ data <- rbind(
 )
 class(data)
 
-Tl = ggplot(data, aes(x=Class, y=loading, fill=Class)) 
-Tt = ggplot(data, aes(x=Class, y=traversing, fill=Class)) 
-Td = ggplot(data, aes(x=Class, y=deleting, fill=Class)) 
-
-Tl <- Tl + geom_boxplot(outlier.shape = NA)
-# ylim1 = boxplot.stats(data$y)$stats[c(1, 5)]
-Tl <- Tl + coord_cartesian(ylim = quantile(data$ing, c(0.01, 0.99)))
-Tt <- Tt + geom_boxplot(outlier.shape = NA)
-Tt <- Tt + coord_cartesian(ylim = quantile(data$traversing, c(0.01, 0.99)))
-Td <- Td + geom_boxplot(outlier.shape = NA)
-Td <- Td + coord_cartesian(ylim = quantile(data$deleting, c(0.075, 0.925)))
+Tl <- plot_ly(data, x= ~vertices, y= ~edges, z= ~loading, color = ~Class)
+Tl <- Tl %>% add_markers()
+Tl <- Tl %>% layout(scene = list(xaxis = list(title = 'vertices'),
+                     yaxis = list(title = 'edges'),
+                     zaxis = list(title = 'loading time (ms)')))
 
 Tl
+
+Tt <- plot_ly(data, x= ~vertices, y= ~edges, z= ~traversing, color = ~Class)
+Tt <- Tt %>% add_markers()
+Tt <- Tt %>% layout(scene = list(xaxis = list(title = 'vertices'),
+                     yaxis = list(title = 'edges'),
+                     zaxis = list(title = 'traversal time (ms)')))
+
 Tt
+
+Td <- plot_ly(data, x= ~vertices, y= ~edges, z= ~deleting, color = ~Class)
+Td <- Td %>% add_markers()
+Td <- Td %>% layout(scene = list(xaxis = list(title = 'vertices'),
+                     yaxis = list(title = 'edges'),
+                     zaxis = list(title = 'reduction time (ms)')))
+
 Td
 
-colMeans(adjhash[sapply(adjhash, is.numeric)])
-colMeans(adjvec[sapply(adjvec, is.numeric)])
-colMeans(adjmatrix[sapply(adjmatrix, is.numeric)])
-colMeans(adjmatrixvec[sapply(adjmatrixvec, is.numeric)])
-colMeans(adjset[sapply(adjset, is.numeric)])
-colMeans(adjflist[sapply(adjflist, is.numeric)])
-colMeans(adjdeque[sapply(adjdeque, is.numeric)])
-colMeans(adjlist[sapply(adjlist, is.numeric)])
+minibench <- read.csv("out\\minibench.csv");
+mbp <- plot_ly(minibench, x = ~length, y = ~deleting, color = ~Class)
+mbp
