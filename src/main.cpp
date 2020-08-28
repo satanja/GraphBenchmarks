@@ -91,12 +91,6 @@ int main()
         std::shared_ptr<Graph> g;
         for (int j = 1; j <= 200; j++)
         {
-            // BAD ALLOC...
-            if (i == 4 && (j == 110 || j == 161))
-            {
-                output << "-,-,-,-\n";
-                continue;
-            }
             switch (i)
             {
             case 1:
@@ -150,9 +144,9 @@ int main()
             reduceGraph(g, del_order);
             auto del_end = std::chrono::high_resolution_clock::now();
 
-            std::chrono::duration<double> build_diff = build_end - build_start;
-            std::chrono::duration<double> traverse_diff = traverse_end - traverse_start;
-            std::chrono::duration<double> del_diff = del_end - del_start;
+            std::chrono::duration<double, std::milli> build_diff = build_end - build_start;
+            std::chrono::duration<double, std::milli> traverse_diff = traverse_end - traverse_start;
+            std::chrono::duration<double, std::milli> del_diff = del_end - del_start;
 
             output << j << ",";
             output << vertices << ",";
