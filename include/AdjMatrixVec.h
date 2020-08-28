@@ -14,7 +14,8 @@ public:
     int vertices();
     void traverse();
 private:
-    std::vector<std::pair<std::vector<int>, std::vector<int>>> adj;
+    std::vector<std::vector<bool>> adj;
+    std::vector<std::vector<int>> adj_edges;
     size_t n;
 };
 
