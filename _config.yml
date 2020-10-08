@@ -1,1 +1,11 @@
-theme: jekyll-theme-minimal
+### your site title here
+
+title: Simple Graph Data Structures Benchmarks
+
+
+### let's use the minima theme (see https://github.com/jekyll/minima)
+
+theme: minima
+
+
+### exclude the instructions / write-up in the README.md
