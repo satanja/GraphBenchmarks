@@ -1,5 +1,5 @@
 ---
-title: Simple Graph Data Structures Benchmarks
+title: 
 layout: default
 ---
 
